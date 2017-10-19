@@ -1,0 +1,5 @@
+#Eclipse/NetBeans Build Directories
+/bin/
+/.settings/
+.project
+.classpath
