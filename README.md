@@ -1,1 +1,1 @@
-Neural Network
+A Neural Network, currently in development. It intends to be able to recognize handwritten digits using Machine Learning algorithms.
