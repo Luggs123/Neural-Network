@@ -196,4 +196,22 @@ public class Matrix {
 		
 		return result;
 	}
+	
+	/**
+	 * Applies an abstract function to every element in the matrix
+	 * @param function The function, extending the abstract class MatrixFunction to be applied to the matrix
+	 * @param m The matrix on which the function will be applied
+	 * @return The resulting matrix from the given function.
+	 */
+	public static <A extends MatrixFunction> Matrix applyFunction(A function, Matrix m) {
+		Matrix result = new Matrix(m, false);
+		
+		for (int i = 0; i < m.rows; i++) {
+			for (int j = 0; j < m.cols; j++) {
+				result.setEntry(i, j, function.apply(i, j, m.rows, m.cols, m.getEntry(i, j)));
+			}
+		}
+		
+		return result;
+	}
 }
