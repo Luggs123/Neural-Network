@@ -1,3 +1,4 @@
+package Network;
 
 public class Pair<A, B> {
 	private A first;

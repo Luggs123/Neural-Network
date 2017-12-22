@@ -1,3 +1,4 @@
+package Driver;
 // Code by Jeff Griffith, from https://github.com/jeffgriffith/mnist-reader.
 // Last edited August 23, 2016
 
@@ -42,7 +43,13 @@ public class MnistReader {
 		for (int i = 0; i < numImages; i++)
 			images.add(readImage(numRows, numColumns, bb));
 		
-		//TODO: convert int[][] into double[] so values are in [0, 255]
+		double[] 
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				
+			}
+ 		}
+		//FIXME: convert int[][] into double[] so values are in [0, 1]
 
 		return images;
 	}

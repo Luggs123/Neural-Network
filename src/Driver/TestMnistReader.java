@@ -1,3 +1,4 @@
+package Driver;
 // Code by Jeff Griffith, from https://github.com/jeffgriffith/mnist-reader.
 // Last edited August 23, 2016
 

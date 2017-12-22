@@ -1,3 +1,4 @@
+package Network;
 import cern.colt.function.DoubleDoubleFunction;
 import cern.colt.function.DoubleFunction;
 import cern.colt.matrix.DoubleMatrix2D;
@@ -7,6 +8,7 @@ import cern.jet.random.Normal;
 import cern.jet.random.engine.DRand;
 import java.math.*;
 import java.util.ArrayList;
+import Matrices.*;
 
 public class Network {
 	//Storage of info: layers, and matrices of values, biases, and weights.
@@ -119,8 +121,16 @@ public class Network {
 		for (int i = 0; i < nablaB.size(); i++) {
 			nablaB.get(i).assign(0);
 		}
+	
+		DenseDoubleMatrix2D image = new DenseDoubleMatrix2D(x.length, 1);
+		for (int i = 0; i < x.length; i++) {
+			image.setQuick(i, 0, x[i]);
+		}
 		
-		//TODO: convert double array to column matrix for feedforwarding
+		values.set(0, image);
+		
+		this.feedForward();
+		
 		//TODO: perform backwards passes
 	}
 	
