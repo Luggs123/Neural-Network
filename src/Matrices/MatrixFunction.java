@@ -6,4 +6,5 @@ package Matrices;
 public abstract class MatrixFunction {
 	
 	public abstract double apply(int entryRow, int entryCol, int matrixRows, int matrixCols, double currentVal);
+	
 }

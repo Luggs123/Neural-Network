@@ -11,9 +11,14 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
+import Network.Pair;
+
 public class MnistReader {
 	public static final int LABEL_FILE_MAGIC_NUMBER = 2049;
 	public static final int IMAGE_FILE_MAGIC_NUMBER = 2051;
+	private static int numImages;
+	private static int numRows;
+	private static int numColumns;
 
 	public static int[] getLabels(String infile) {
 
@@ -35,23 +40,53 @@ public class MnistReader {
 
 		assertMagicNumber(IMAGE_FILE_MAGIC_NUMBER, bb.getInt());
 
-		int numImages = bb.getInt();
-		int numRows = bb.getInt();
-		int numColumns = bb.getInt();
+		numImages = bb.getInt();
+		numRows = bb.getInt();
+		numColumns = bb.getInt();
 		List<int[][]> images = new ArrayList<>();
 
 		for (int i = 0; i < numImages; i++)
 			images.add(readImage(numRows, numColumns, bb));
 		
-		double[] 
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
 				
 			}
  		}
-		//FIXME: convert int[][] into double[] so values are in [0, 1]
 
 		return images;
+	}
+	
+	public static ArrayList<Pair<double[], double[]>> getData(String infile) {
+		ArrayList<Pair<double[], double[]>> data = new ArrayList<Pair<double[], double[]>>();
+		
+		ArrayList<int[][]> images = new ArrayList<int[][]>(MnistReader.getImages(infile));
+		
+		int[] labels = MnistReader.getLabels(infile);
+		
+		for (int i = 0; i < images.size(); i++) {
+			double[] image = new double[numRows * numColumns];
+			double[] expectation = new double[10];
+			
+			for (int row = 0; row < numRows; row++) {
+				for (int col = 0; col < numColumns; col++) {
+					image[row * numColumns + col] = images.get(i)[row][col] / 255.0;
+				}
+			}
+			
+			for (int j = 0; j < 10; j++) {
+				if (labels[i] == j) {
+					expectation[j] = 0;
+				} else {
+					expectation[j] = 1;
+				}
+			}
+			
+			Pair<double[], double[]> imagePair = new Pair(image, expectation);
+			data.add(imagePair);
+		}
+		
+		return data;
 	}
 
 	private static int[][] readImage(int numRows, int numCols, ByteBuffer bb) {

@@ -8,17 +8,17 @@ public class Matrix {
 	/**
 	 * The data stored in the matrix
 	 */
-	double[][] entries;
+	private double[][] entries;
 	
 	/**
 	 * Rows in the matrix
 	 */
-	int rows;
+	private int rows;
 	
 	/**
 	 * Columns in the matrix
 	 */
-	int cols;
+	private int cols;
 
 
 	/**
@@ -130,6 +130,14 @@ public class Matrix {
 	public void setEntry(int row, int col, double val) throws ArrayIndexOutOfBoundsException {
 		this.entries[row][col] = val;
 	}
+	
+	public int getRows() {
+		return this.rows;
+	}
+	
+	public int getCols() {
+		return this.cols;
+	}
 
 	/**
 	 * Gets the result of multiplication of two matrices
@@ -191,6 +199,22 @@ public class Matrix {
 		for (int i = 0; i < result.rows; i++) {
 			for (int j = 0; j < result.cols; j++) {
 				result.setEntry(i, j, m1.getEntry(i, j) + m2.getEntry(i, j));
+			}
+		}
+		
+		return result;
+	}
+	
+	public static Matrix hadamardProduct(Matrix m1, Matrix m2) throws HadamardException {
+		if (m1.rows != m2.rows || m1.cols != m2.cols) {
+			throw new HadamardException("Failed to perform hadamard product");
+		}
+		
+		Matrix result = new Matrix(m1, false);
+		
+		for (int i = 0; i < result.rows; i++) {
+			for (int j = 0; j < result.cols; j++) {
+				result.setEntry(i, j, m1.getEntry(i, j) * m2.getEntry(i, j));
 			}
 		}
 		
