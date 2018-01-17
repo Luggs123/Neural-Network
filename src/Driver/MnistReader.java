@@ -57,12 +57,12 @@ public class MnistReader {
 		return images;
 	}
 	
-	public static ArrayList<Pair<double[], double[]>> getData(String infile) {
+	public static ArrayList<Pair<double[], double[]>> getData(String imageFile, String labelFile) {
 		ArrayList<Pair<double[], double[]>> data = new ArrayList<Pair<double[], double[]>>();
 		
-		ArrayList<int[][]> images = new ArrayList<int[][]>(MnistReader.getImages(infile));
+		ArrayList<int[][]> images = new ArrayList<int[][]>(MnistReader.getImages(imageFile));
 		
-		int[] labels = MnistReader.getLabels(infile);
+		int[] labels = MnistReader.getLabels(labelFile);
 		
 		for (int i = 0; i < images.size(); i++) {
 			double[] image = new double[numRows * numColumns];
@@ -76,9 +76,9 @@ public class MnistReader {
 			
 			for (int j = 0; j < 10; j++) {
 				if (labels[i] == j) {
-					expectation[j] = 0;
-				} else {
 					expectation[j] = 1;
+				} else {
+					expectation[j] = 0;
 				}
 			}
 			

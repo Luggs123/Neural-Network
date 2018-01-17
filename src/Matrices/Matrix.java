@@ -1,10 +1,12 @@
 package Matrices;
 
+import java.io.Serializable;
+
 /**
  * Class to store entries and function as a Matrix
  * @author Michael Luger
  */
-public class Matrix {
+public class Matrix implements Serializable {
 	/**
 	 * The data stored in the matrix
 	 */
@@ -215,6 +217,18 @@ public class Matrix {
 		for (int i = 0; i < result.rows; i++) {
 			for (int j = 0; j < result.cols; j++) {
 				result.setEntry(i, j, m1.getEntry(i, j) * m2.getEntry(i, j));
+			}
+		}
+		
+		return result;
+	}
+	
+	public static Matrix transpose(Matrix m) {
+		Matrix result = new Matrix(m.cols, m.rows);
+		
+		for (int row = 0; row < m.rows; row++) {
+			for (int col = 0; col < m.cols; col++) {
+				result.setEntry(col, row, m.getEntry(row, col));
 			}
 		}
 		
